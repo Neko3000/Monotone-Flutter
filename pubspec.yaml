@@ -30,14 +30,14 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   # Json
-  json_annotation: 4.0.1
+  json_annotation: 3.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # Json
-  json_serializable: 4.1.0
+  json_serializable: 3.5.1
   build_runner: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
