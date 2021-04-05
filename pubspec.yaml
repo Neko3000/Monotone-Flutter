@@ -29,17 +29,14 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-  # Json
-  json_annotation: 3.1.1
-
-  # Dio
   dio: ^4.0.0
+  json_annotation: 3.1.1
+  rxdart:  0.26.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # Json
   json_serializable: 3.5.1
   build_runner: ^1.0.0
 
