@@ -6,6 +6,8 @@ part 'list_photo_response.g.dart';
 
 @JsonSerializable()
 class ListPhotoResponse extends BaseResponse{
+  ListPhotoResponse();
+
   List<Photo> result;
 
   factory ListPhotoResponse.fromJson(Map<String,dynamic> json) => _$ListPhotoResponseFromJson(json);
