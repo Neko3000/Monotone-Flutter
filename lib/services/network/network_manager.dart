@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:monotone_flutter/services/authentication/auth_manager.dart';
 import 'package:monotone_flutter/services/network/requests/base_request.dart';
 
 class NetworkManager{
@@ -20,7 +21,10 @@ class NetworkManager{
     String tokenType = '';
     String accessToken = '';
 
-    if(true){
+    if(AuthManager.shared.credential != null){
+      tokenType = AuthManager.shared.credential.tokenType;
+      accessToken = AuthManager.shared.credential.accessToken;
+    } else{
       tokenType = 'Client-ID';
       accessToken = '';
     }
