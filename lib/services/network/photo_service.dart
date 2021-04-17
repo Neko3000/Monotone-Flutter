@@ -19,6 +19,4 @@ class PhotoService extends NetworkService{
         return photos;
     });
   }
-
-  
 }
