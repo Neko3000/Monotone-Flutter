@@ -7,6 +7,7 @@ enum ListOrderByType{
 class ListOrderBy{
   ListOrderBy(this.type);
 
+  //region FromType
   final ListOrderByType type;
   factory ListOrderBy.fromType(ListOrderByType type){
 
@@ -28,7 +29,9 @@ class ListOrderBy{
 
     return listOrderBy;
   }
+  //endregion
 
+  //region FromKey
   String key;
   factory ListOrderBy.fromKey(String key){
 
@@ -45,6 +48,7 @@ class ListOrderBy{
     }
 
   }
+  //endregion
 
   String title;
 }

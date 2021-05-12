@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monotone_flutter/screens/photo_list_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,10 +23,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: PhotoListScreen(title:"Photo List"),
     );
   }
 }
+
+// Modified ============
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
