@@ -14,6 +14,7 @@ enum UnsplashTopicType{
 class UnsplashTopic{
   UnsplashTopic(this.type);
 
+  //region FromType
   UnsplashTopicType type;
   factory UnsplashTopic.fromType(UnsplashTopicType type){
 
@@ -66,7 +67,9 @@ class UnsplashTopic{
 
     return unsplashTopic;
   }
+  //endregion
 
+  //region FromKey
   String key;
   factory UnsplashTopic.fromKey(String key){
     switch(key){
@@ -105,6 +108,7 @@ class UnsplashTopic{
       return null;
     }
   }
+  //endregion
 
   String title;
 }
