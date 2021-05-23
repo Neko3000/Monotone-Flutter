@@ -26,28 +26,45 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
         body: SafeArea(
             child: Column(
       children: [
-        Container(height:300,child:
-        Row(
-          children: [
-            Expanded(
-                child: Column(children: [
-                  Text(
-                    "Unsplash",
-                    style: TextStyle(color: Colors.black, fontSize: 36),
+        Container(
+            height: 300,
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            child: Row(
+              children: [
+                Expanded(
+                    child: Column(children: [
+                  Container(
+                    width: double.infinity,
+                    child: Text(
+                      "Unsplash",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Text(
-                    "Beautiful, free photos. Gifted by the world’s most generous community of photographers. 🎁",
-                    style: TextStyle(color: Colors.grey, fontSize: 12),
-                  ),
+                  Container(
+                      padding: const EdgeInsets.only(right: 55),
+                      child: Text(
+                        "Beautiful, free photos. Gifted by the world’s most generous community of photographers. 🎁",
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      )),
                   Spacer(),
-                  Text(
-                    "Editorial or Following",
-                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                  Container(
+                    width: double.infinity,
+                    child: Text(
+                      "Editorial or Following",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold),
+                    ),
                   )
                 ]))
-          ],
-        )),
-        Row()
+              ],
+            )),
+
       ],
     )));
   }
