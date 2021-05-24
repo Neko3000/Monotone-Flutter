@@ -17,10 +17,12 @@ class ListOrderBy{
 
       case ListOrderByType.popular:
         listOrderBy.title = "popular title";
+        listOrderBy.key = "popular";
         break;
 
       case ListOrderByType.latest:
         listOrderBy.title = "latest title";
+        listOrderBy.key = "latest";
         break;
 
       default:

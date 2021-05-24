@@ -5,6 +5,7 @@ import 'package:monotone_flutter/enums/photo/list_order_by.dart';
 import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
 import 'package:monotone_flutter/models/photo/photo.dart';
 import 'package:monotone_flutter/screens/photo_list_bloc.dart';
+import 'package:monotone_flutter/screens/photo_list_event.dart';
 import 'package:monotone_flutter/screens/photo_list_state.dart';
 
 // BlocBuilder<PhotoListBloc,PhotoListState>(
@@ -24,8 +25,10 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return BlocProvider(
-        create: (BuildContext context) =>
-            PhotoListBloc((PhotoListStateInitial())),
+        create: (BuildContext context) {
+          PhotoListEvent event = PhotoListListOrderByChanged(listOrderBy: ListOrderBy.fromType(ListOrderByType.popular));
+          return PhotoListBloc(PhotoListStateInitial())..add(event);
+        },
 
         child: Scaffold(body: SafeArea(
           child: BlocBuilder<PhotoListBloc, PhotoListState>(

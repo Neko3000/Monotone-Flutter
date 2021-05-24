@@ -2,7 +2,7 @@ import 'package:monotone_flutter/services/authentication/auth_credential.dart';
 
 class AuthManager{
 
-  //region Description
+  //region Singleton
   static final AuthManager _shared = AuthManager._internal();
   static AuthManager get shared => _shared;
   //endregion

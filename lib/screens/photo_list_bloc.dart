@@ -1,3 +1,4 @@
+import 'package:monotone_flutter/enums/photo/list_order_by.dart';
 import 'package:monotone_flutter/models/photo/photo.dart';
 import 'package:monotone_flutter/screens/base_bloc.dart';
 import 'package:monotone_flutter/screens/photo_list_event.dart';
@@ -12,7 +13,8 @@ class PhotoListBloc extends BaseBloc<PhotoListEvent, PhotoListState>{
 
     yield PhotoListStateLoadMoreInProgress();
 
-    PhotoService photoService = this.findServices(PhotoService);
+    // PhotoService photoService = this.findServices(PhotoService);
+    PhotoService photoService = PhotoService();
 
     if(event is PhotoListMoreLoaded){
 
@@ -41,15 +43,37 @@ class PhotoListBloc extends BaseBloc<PhotoListEvent, PhotoListState>{
           yield PhotoListStateLoadFailure.fromState(this.state);
         }
       }
-
-      }
       else if(this.state.topic != null){
         //
       }
       else{
 
       }
-
     }
+    else if(event is PhotoListListOrderByChanged){
+
+      final ListOrderBy listOrderBy = event.listOrderBy;
+
+      final int nextLoadPage = 1;
+      final int perPage = 20;
+
+      try{
+        final List<Photo> photos = await photoService.listPhotos(
+          page: nextLoadPage,
+          perPage: perPage,
+          orderBy: listOrderBy.key
+        );
+
+        yield PhotoListStateLoadSuccess(searchQuery: null,
+        listOrderBy: listOrderBy,
+        topic: null,
+        currentPhotos: photos,
+        nextLoadPage: nextLoadPage + 1);
+      }
+      catch(e){
+        yield PhotoListStateLoadFailure.fromState(this.state);
+      }
+    }
+  }
 
 }
