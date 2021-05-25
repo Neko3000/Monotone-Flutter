@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:monotone_flutter/application/app_manager.dart';
 import 'package:monotone_flutter/screens/photo_list_screen.dart';
+import 'package:monotone_flutter/services/authentication/auth_manager.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Credentials
+  await AppManager.shared.loadCredential();
+  await AuthManager.shared.loadCredential();
+
   runApp(MyApp());
 }
 

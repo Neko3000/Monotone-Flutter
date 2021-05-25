@@ -8,11 +8,8 @@ class AuthManager{
   //endregion
 
   //region Constructor
-  AuthManager._internal(): super(){
-    this.loadCredential();
-  }
+  AuthManager._internal();
   //endregion
-
 
   //region Credential
   AuthCredential _credential;
@@ -23,13 +20,16 @@ class AuthManager{
     this.storeCredential(credential);
   }
 
-  void loadCredential() async {
+  Future loadCredential() async {
     _credential = await AuthCredential.loadCredential();
   }
 
   void storeCredential(AuthCredential credential) async{
     AuthCredential.storeCredential(credential);
   }
+
+
+
   //endregion
 
 }

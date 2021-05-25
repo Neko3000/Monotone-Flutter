@@ -14,7 +14,7 @@ class AppCredential{
   String get accessKey => this._accessKey;
   String get secretKey => this._secretKey;
 
-  static Future<AppCredential> credential() async{
+  static Future<AppCredential> loadCredential() async{
 
     try {
       String jsonStr;

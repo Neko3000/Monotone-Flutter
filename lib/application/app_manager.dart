@@ -3,15 +3,18 @@ import 'package:monotone_flutter/application/app_credential.dart';
 class AppManager{
 
   //region Singleton
-  static final AppManager _shared = AppManager.internal();
+  static final AppManager _shared = AppManager._internal();
   static AppManager get shared => _shared;
   //endregion
 
   //region Constructors
-  AppManager.internal():super(){
-    //
-  }
+  AppManager._internal();
   //endregion
 
-  final AppCredential credential = AppCredential();
+  AppCredential _credential;
+  AppCredential get credential => _credential;
+
+  Future loadCredential() async{
+    this._credential = await AppCredential.loadCredential();
+  }
 }
