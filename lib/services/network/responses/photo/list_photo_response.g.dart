@@ -8,7 +8,7 @@ part of 'list_photo_response.dart';
 
 ListPhotoResponse _$ListPhotoResponseFromJson(Map<String, dynamic> json) {
   return ListPhotoResponse()
-    ..result = (json['result'] as List)
+    ..results = (json['results'] as List)
         ?.map(
             (e) => e == null ? null : Photo.fromJson(e as Map<String, dynamic>))
         ?.toList();
@@ -16,5 +16,5 @@ ListPhotoResponse _$ListPhotoResponseFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ListPhotoResponseToJson(ListPhotoResponse instance) =>
     <String, dynamic>{
-      'result': instance.result,
+      'results': instance.results,
     };

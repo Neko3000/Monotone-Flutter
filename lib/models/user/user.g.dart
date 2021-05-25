@@ -18,9 +18,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..twitterUsername = json['twitterUsername'] as String
     ..portfolioURL = json['portfolioURL'] as String
     ..bio = json['bio'] as String
-    ..location = json['location'] == null
-        ? null
-        : Location.fromJson(json['location'] as Map<String, dynamic>)
+    ..location = json['location'] as String
     ..links = json['links'] == null
         ? null
         : Links.fromJson(json['links'] as Map<String, dynamic>)

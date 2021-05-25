@@ -7,6 +7,7 @@ import 'package:monotone_flutter/services/network/responses/photo/list_photo_res
 class PhotoService extends NetworkService{
 
   Future<List<Photo>> listPhotos({int page = 1, int perPage = 10, String orderBy = 'latest'}){
+
     ListPhotoRequest request = ListPhotoRequest();
     request.page = page;
     request.perPage = perPage;
@@ -14,7 +15,7 @@ class PhotoService extends NetworkService{
 
     return NetworkManager.shared.request(request, 'GET').then((json){
         ListPhotoResponse response = ListPhotoResponse.fromJson(json);
-        List<Photo> photos = response.result;
+        List<Photo> photos = response.results;
 
         return photos;
     });

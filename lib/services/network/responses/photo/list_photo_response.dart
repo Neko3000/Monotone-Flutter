@@ -8,7 +8,7 @@ part 'list_photo_response.g.dart';
 class ListPhotoResponse extends BaseResponse{
   ListPhotoResponse();
 
-  List<Photo> result;
+  List<Photo> results;
 
   factory ListPhotoResponse.fromJson(Map<String,dynamic> json) => _$ListPhotoResponseFromJson(json);
 }

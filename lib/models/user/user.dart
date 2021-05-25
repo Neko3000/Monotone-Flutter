@@ -20,7 +20,7 @@ class User{
   String twitterUsername;
   String portfolioURL;
   String bio;
-  Location location;
+  String location;
   Links links;
   ProfileImage profileImage;
   int totalCollections;

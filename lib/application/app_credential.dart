@@ -23,8 +23,8 @@ class AppCredential{
 
       Map<String, dynamic> data = jsonDecode(jsonStr);
 
-      String accessKey = data['api_keys']['accessKey'];
-      String secretKey = data['api_keys']['secretKey'];
+      String accessKey = data['api_keys']['access_key'];
+      String secretKey = data['api_keys']['secret_key'];
 
       AppCredential credential = AppCredential(accessKey, secretKey);
       return credential;
