@@ -40,6 +40,7 @@ dependencies:
   rxdart: 0.26.0
   flutter_bloc: 7.0.0
   cached_network_image: 3.0.0
+  flutter_easyrefresh: 2.2.1
 
 dev_dependencies:
   flutter_test:
