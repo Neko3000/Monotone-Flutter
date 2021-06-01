@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
-import 'package:monotone_flutter/models/topic/topic.dart';
+import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
 
 abstract class PhotoListEvent extends Equatable{
   const PhotoListEvent();
@@ -31,7 +31,7 @@ class PhotoListListOrderByChanged extends PhotoListEvent{
 class PhotoListTopicChanged extends PhotoListEvent{
   const PhotoListTopicChanged({@required this.topic});
 
-  final Topic topic;
+  final UnsplashTopic topic;
 
   @override
   List<Object> get props => [topic];

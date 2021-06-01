@@ -6,7 +6,7 @@ abstract class BlocServable{
 
   List<BaseService> services;
 
-  T findServices<T>(Type type){
+  T findService<T>(Type type){
     return this.services.where((element) => element.runtimeType == type).first as T;
   }
 }

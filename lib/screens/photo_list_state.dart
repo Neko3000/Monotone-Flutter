@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
+import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
 import 'package:monotone_flutter/models/photo/photo.dart';
-import 'package:monotone_flutter/models/topic/topic.dart';
 
 class PhotoListState extends Equatable {
   PhotoListState(
@@ -13,7 +13,7 @@ class PhotoListState extends Equatable {
 
   final String searchQuery;
   final ListOrderBy listOrderBy;
-  final Topic topic;
+  final UnsplashTopic topic;
 
   List<Photo> get photos => this.currentPhotos;
   final List<Photo> currentPhotos;
@@ -28,7 +28,7 @@ class PhotoListStateInitial extends PhotoListState {
   PhotoListStateInitial(
       {String searchQuery,
       ListOrderBy listOrderBy,
-      Topic topic,
+      UnsplashTopic topic,
       List<Photo> currentPhotos,
       List<Photo> emptyPhotos,
       int nextLoadPage})
@@ -47,7 +47,7 @@ class PhotoListStateLoadMoreInProgress extends PhotoListState {
   PhotoListStateLoadMoreInProgress(
       {String searchQuery,
       ListOrderBy listOrderBy,
-      Topic topic,
+      UnsplashTopic topic,
       List<Photo> currentPhotos,
       List<Photo> emptyPhotos,
       int nextLoadPage})
@@ -74,7 +74,7 @@ class PhotoListStateReloadInProgress extends PhotoListState {
   PhotoListStateReloadInProgress(
       {String searchQuery,
       ListOrderBy listOrderBy,
-      Topic topic,
+      UnsplashTopic topic,
       List<Photo> currentPhotos,
       int nextLoadPage})
       : super(
@@ -100,7 +100,7 @@ class PhotoListStateLoadSuccess extends PhotoListState {
   PhotoListStateLoadSuccess(
       {String searchQuery,
       ListOrderBy listOrderBy,
-      Topic topic,
+      UnsplashTopic topic,
       List<Photo> currentPhotos,
       int nextLoadPage})
       : super(
@@ -126,7 +126,7 @@ class PhotoListStateLoadFailure extends PhotoListState {
   PhotoListStateLoadFailure(
       {String searchQuery,
       ListOrderBy listOrderBy,
-      Topic topic,
+      UnsplashTopic topic,
       List<Photo> currentPhotos,
       int nextLoadPage})
       : super(
