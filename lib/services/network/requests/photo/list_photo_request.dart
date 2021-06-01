@@ -7,7 +7,8 @@ part 'list_photo_request.g.dart';
 class ListPhotoRequest extends BaseRequest {
   ListPhotoRequest();
 
-  String api = 'photos';
+  @JsonKey(ignore: true)
+  String get api => 'photos';
 
   int page;
   int perPage;
