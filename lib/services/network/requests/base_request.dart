@@ -1,7 +1,7 @@
 class BaseRequest{
   BaseRequest();
 
-  String api;
+  String get api => '';
 
   Map<String,dynamic> toJson() => {};
 }

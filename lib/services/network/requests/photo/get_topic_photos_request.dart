@@ -7,13 +7,20 @@ part 'get_topic_photos_request.g.dart';
 class GetTopicPhotosRequest extends BaseRequest {
   GetTopicPhotosRequest();
 
+  @override
   @JsonKey(ignore: true)
   String get api => 'topic/${this.idOrSlug ?? ''}/photos';
 
+  @JsonKey(ignore: true)
   String idOrSlug;
+
+  @JsonKey(name: 'page')
   int page;
+  @JsonKey(name: 'per_page')
   int perPage;
+  @JsonKey(name: 'orientation')
   String orientation;
+  @JsonKey(name: 'order_by')
   String orderBy;
 
   Map<String, dynamic> toJson() => _$GetTopicPhotosRequestToJson(this);

@@ -21,13 +21,21 @@ class PhotoGridViewCell extends StatelessWidget {
                 height: 30.0,
               )
           ),
-          CachedNetworkImage(
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
-              imageUrl: photo.urls.full,
-              // placeholder: (context, url) => null,
-              errorWidget: (context, url, error) => Icon(Icons.error)),
+          ((){
+            if(photo?.urls?.full != null){
+              return CachedNetworkImage(
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                  imageUrl: photo.urls.full,
+                  // placeholder: (context, url) => null,
+                  errorWidget: (context, url, error) => Icon(Icons.error));
+            }
+            else{
+              return Container();
+            }
+          }())
+,
 
           // Container(color: Colors.red.withOpacity(0.7),),
           // Container(color: Colors.blue.withOpacity(0.4),)

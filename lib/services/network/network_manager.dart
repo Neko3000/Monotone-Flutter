@@ -46,7 +46,9 @@ class NetworkManager{
     baseOptions.method = method;
 
     Dio dio = Dio(baseOptions);
-    return dio.request(request.api, data: request.toJson()).then((response){
+    dio.interceptors.add(LogInterceptor(responseBody: false));
+
+    return dio.request(request.api, queryParameters: request.toJson()).then((response){
 
      dynamic json = response.data;
 

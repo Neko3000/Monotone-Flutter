@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
-import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
-import 'package:monotone_flutter/models/photo/photo.dart';
 import 'package:monotone_flutter/screens/photo_grid_view_cell.dart';
 import 'package:monotone_flutter/screens/photo_list_bloc.dart';
 import 'package:monotone_flutter/screens/photo_list_event.dart';
@@ -28,23 +26,20 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return BlocProvider(create: (BuildContext context) {
       PhotoListEvent event = PhotoListListOrderByChanged(
-          listOrderBy: ListOrderBy.fromType(ListOrderByType.popular));
+          listOrderBy: ListOrderBy.fromType(ListOrderByType.latest));
       return PhotoListBloc()..add(event);
     }, child: Scaffold(body: SafeArea(
       child:
           BlocBuilder<PhotoListBloc, PhotoListState>(builder: (context, state) {
-
-            if(state is PhotoListStateLoadSuccess){
-              this._easyRefreshController.finishRefresh(success: true);
-              this._easyRefreshController.finishLoad(success: true);
-            }
-            else if(state is PhotoListStateLoadFailure){
-              this._easyRefreshController.finishRefresh(success: false);
-              this._easyRefreshController.finishLoad(success: false);
-            }
+        if (state is PhotoListStateLoadSuccess) {
+          this._easyRefreshController.finishRefresh(success: true);
+          this._easyRefreshController.finishLoad(success: true);
+        } else if (state is PhotoListStateLoadFailure) {
+          this._easyRefreshController.finishRefresh(success: false);
+          this._easyRefreshController.finishLoad(success: false);
+        }
 
         return Column(
           children: [
@@ -86,15 +81,18 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
             Container(
                 child: Expanded(
               child: EasyRefresh(
+                controller: this._easyRefreshController,
                 enableControlFinishRefresh: true,
                 enableControlFinishLoad: true,
                 onRefresh: () async {
                   print('onRefresh');
-                  BlocProvider.of<PhotoListBloc>(context).add(PhotoListReloaded());
+                  BlocProvider.of<PhotoListBloc>(context)
+                      .add(PhotoListReloaded());
                 },
                 onLoad: () async {
                   print('onLoad');
-                  BlocProvider.of<PhotoListBloc>(context).add(PhotoListMoreLoaded());
+                  BlocProvider.of<PhotoListBloc>(context)
+                      .add(PhotoListMoreLoaded());
                 },
                 child: StaggeredGridView.countBuilder(
                     crossAxisCount: 2,

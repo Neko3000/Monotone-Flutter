@@ -10,11 +10,11 @@ SearchPhotoRequest _$SearchPhotoRequestFromJson(Map<String, dynamic> json) {
   return SearchPhotoRequest()
     ..query = json['query'] as String
     ..page = json['page'] as int
-    ..perPage = json['perPage'] as int
-    ..orderBy = json['orderBy'] as String
+    ..perPage = json['per_page'] as int
+    ..orderBy = json['order_by'] as String
     ..collections =
         (json['collections'] as List)?.map((e) => e as String)?.toList()
-    ..contentFilter = json['contentFilter'] as String
+    ..contentFilter = json['content_filter'] as String
     ..color = json['color'] as String
     ..orientation = json['orientation'] as String;
 }
@@ -23,10 +23,10 @@ Map<String, dynamic> _$SearchPhotoRequestToJson(SearchPhotoRequest instance) =>
     <String, dynamic>{
       'query': instance.query,
       'page': instance.page,
-      'perPage': instance.perPage,
-      'orderBy': instance.orderBy,
+      'per_page': instance.perPage,
+      'order_by': instance.orderBy,
       'collections': instance.collections,
-      'contentFilter': instance.contentFilter,
+      'content_filter': instance.contentFilter,
       'color': instance.color,
       'orientation': instance.orientation,
     };

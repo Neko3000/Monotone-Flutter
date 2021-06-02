@@ -36,7 +36,7 @@ class PhotoListStateInitial extends PhotoListState {
             searchQuery: searchQuery,
             listOrderBy: listOrderBy,
             topic: topic,
-            currentPhotos: currentPhotos,
+            currentPhotos: currentPhotos ?? [],
             nextLoadPage: nextLoadPage);
 
   @override

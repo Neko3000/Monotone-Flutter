@@ -9,13 +9,13 @@ part of 'list_photo_request.dart';
 ListPhotoRequest _$ListPhotoRequestFromJson(Map<String, dynamic> json) {
   return ListPhotoRequest()
     ..page = json['page'] as int
-    ..perPage = json['perPage'] as int
-    ..orderBy = json['orderBy'] as String;
+    ..perPage = json['per_page'] as int
+    ..orderBy = json['order_by'] as String;
 }
 
 Map<String, dynamic> _$ListPhotoRequestToJson(ListPhotoRequest instance) =>
     <String, dynamic>{
       'page': instance.page,
-      'perPage': instance.perPage,
-      'orderBy': instance.orderBy,
+      'per_page': instance.perPage,
+      'order_by': instance.orderBy,
     };

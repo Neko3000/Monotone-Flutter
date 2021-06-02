@@ -15,6 +15,8 @@ class PhotoService extends NetworkService {
     request.perPage = perPage;
     request.orderBy = orderBy;
 
+    print('in listPhotos next load page is $page');
+
     return NetworkManager.shared.request(request, 'GET').then((json) {
       ListPhotoResponse response = ListPhotoResponse.fromJson(json);
       List<Photo> photos = response.results;
