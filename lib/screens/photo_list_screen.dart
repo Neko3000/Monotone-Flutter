@@ -1,16 +1,31 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
+import 'package:monotone_flutter/screens/base_widget_state.dart';
 import 'package:monotone_flutter/screens/photo_grid_view_cell.dart';
 import 'package:monotone_flutter/screens/photo_list_bloc.dart';
 import 'package:monotone_flutter/screens/photo_list_event.dart';
+import 'package:monotone_flutter/screens/photo_list_header_view.dart';
+import 'package:monotone_flutter/screens/photo_list_jumbotron_view.dart';
 import 'package:monotone_flutter/screens/photo_list_state.dart';
+import 'package:monotone_flutter/vars/interface_values.dart';
 
-// BlocBuilder<PhotoListBloc,PhotoListState>(
-// )
+enum PhotoListAnimationStateType{
+  showJumbotronView,
+  showHeaderView
+}
+
+class PhotoListAnimationState extends AnimationState{
+  PhotoListAnimationState.fromType(this.type);
+  final PhotoListAnimationStateType type;
+
+  @override
+  List<Object> get props => [this.type];
+}
 
 class PhotoListScreen extends StatefulWidget {
   PhotoListScreen({Key key, this.title}) : super(key: key);
@@ -21,8 +36,20 @@ class PhotoListScreen extends StatefulWidget {
   _PhotoListScreenState createState() => _PhotoListScreenState();
 }
 
-class _PhotoListScreenState extends State<PhotoListScreen> {
+class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements WidgetStateAnimatable {
+
   EasyRefreshController _easyRefreshController = EasyRefreshController();
+  ScrollController _scrollController = ScrollController();
+
+  bool _showJumbotronView = true;
+  PhotoListAnimationState _animationState = PhotoListAnimationState.fromType(PhotoListAnimationStateType.showJumbotronView);
+
+  @override
+  void initState() {
+    super.initState();
+
+    this.buildAnimation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,71 +70,88 @@ class _PhotoListScreenState extends State<PhotoListScreen> {
 
         return Column(
           children: [
-            Container(
-                height: 300,
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Column(children: [
-                  Container(
-                    width: double.infinity,
-                    child: Text(
-                      "Unsplash",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      padding: const EdgeInsets.only(right: 55),
-                      child: Text(
-                        "Beautiful, free photos. Gifted by the world’s most generous community of photographers. 🎁",
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
-                      )),
-                  Spacer(),
-                  Container(
-                    width: double.infinity,
-                    child: Text(
-                      "Editorial or Following",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ])),
-            Container(
-                child: Expanded(
-              child: EasyRefresh(
-                controller: this._easyRefreshController,
-                enableControlFinishRefresh: true,
-                enableControlFinishLoad: true,
-                onRefresh: () async {
-                  print('onRefresh');
-                  BlocProvider.of<PhotoListBloc>(context)
-                      .add(PhotoListReloaded());
-                },
-                onLoad: () async {
-                  print('onLoad');
-                  BlocProvider.of<PhotoListBloc>(context)
-                      .add(PhotoListMoreLoaded());
-                },
-                child: StaggeredGridView.countBuilder(
-                    crossAxisCount: 2,
-                    itemCount: state.photos.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        PhotoGridViewCell(
-                          photo: state.photos[index],
-                        ),
-                    staggeredTileBuilder: (int index) => StaggeredTile.count(
-                        index % 4 == 0 || index % 4 == 3 ? 2 : 1, 1.5)),
-              ),
-            ))
+            this._renderHeaderView(context, state),
+            this._renderPhotoListView(context, state)
           ],
         );
       }),
     )));
+  }
+
+  Widget _renderHeaderView(BuildContext context, PhotoListState state) {
+
+    if(this._showJumbotronView){
+      return PhotoListJumbotronView();
+    }
+    else{
+      return PhotoListHeaderView();
+    }
+  }
+
+  Widget _renderPhotoListView(BuildContext context, PhotoListState state) {
+    return Container(
+        child: Expanded(
+      child: EasyRefresh(
+        controller: this._easyRefreshController,
+        enableControlFinishRefresh: true,
+        enableControlFinishLoad: true,
+        onRefresh: () async {
+          print('onRefresh');
+          BlocProvider.of<PhotoListBloc>(context).add(PhotoListReloaded());
+        },
+        onLoad: () async {
+          print('onLoad');
+          BlocProvider.of<PhotoListBloc>(context).add(PhotoListMoreLoaded());
+        },
+        child: StaggeredGridView.countBuilder(
+            controller: this._scrollController,
+            crossAxisCount: 2,
+            itemCount: state.photos.length,
+            itemBuilder: (BuildContext context, int index) =>
+                PhotoGridViewCell(
+                  photo: state.photos[index],
+                ),
+            staggeredTileBuilder: (int index) => StaggeredTile.count(
+                index % 4 == 0 || index % 4 == 3 ? 2 : 1, 1.5)),
+      ),
+    ));
+  }
+
+  @override
+  void buildAnimation() {
+
+    this._scrollController.addListener(() {
+
+      if(this._scrollController.position.pixels <= InterfaceValues.showTopContentOffset){
+        this.animation(PhotoListAnimationState.fromType(PhotoListAnimationStateType.showJumbotronView));
+      }
+      else{
+        this.animation(PhotoListAnimationState.fromType(PhotoListAnimationStateType.showHeaderView));
+      }
+
+      print('scrollController position pixels = ${this._scrollController.position.pixels}');
+      print('showJumbotronView in addListener is ${this._showJumbotronView.toString()}');
+    });
+
+  }
+
+  @override
+  void animation(AnimationState state) {
+
+    PhotoListAnimationState photoListAnimationState = state as PhotoListAnimationState;
+
+    if(photoListAnimationState == PhotoListAnimationState.fromType(PhotoListAnimationStateType.showJumbotronView)){
+      this.setState(() {
+        this._showJumbotronView = true;
+      });
+
+    }
+    else if(photoListAnimationState == PhotoListAnimationState.fromType(PhotoListAnimationStateType.showHeaderView)) {
+      this.setState(() {
+        this._showJumbotronView = false;
+      });
+    }
+
+    this._animationState = photoListAnimationState;
   }
 }
