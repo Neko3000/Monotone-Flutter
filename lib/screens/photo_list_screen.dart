@@ -47,7 +47,7 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements 
   Widget build(BuildContext context) {
     return BlocProvider(create: (BuildContext context) {
       PhotoListEvent event = PhotoListListOrderByChanged(
-          listOrderBy: ListOrderBy.fromType(ListOrderByType.latest));
+          listOrderBy: ListOrderBy.latest);
       return PhotoListBloc()..add(event);
     }, child: Scaffold(body: SafeArea(
       child:

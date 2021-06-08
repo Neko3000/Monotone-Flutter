@@ -1,9 +1,46 @@
 
-enum ListOrderByType{
+enum ListOrderBy{
   popular,
   latest
 }
 
+extension ListOrderByTypeExtension on ListOrderBy{
+
+  String get title {
+    switch(this){
+      case ListOrderBy.popular:
+        return 'popular title';
+      case ListOrderBy.latest:
+        return 'latest title';
+      default:
+        return '';
+    }
+  }
+
+  String get key {
+    switch(this){
+      case ListOrderBy.popular:
+        return 'popular';
+      case ListOrderBy.latest:
+        return 'latest';
+      default:
+        return '';
+    }
+  }
+
+  static ListOrderBy rawValue(String key){
+    switch(key){
+      case 'popular':
+        return ListOrderBy.popular;
+      case'latest':
+        return ListOrderBy.latest;
+      default:
+        return null;
+    }
+  }
+}
+
+/*
 class ListOrderBy{
   ListOrderBy(this.type);
 
@@ -54,3 +91,4 @@ class ListOrderBy{
 
   String title;
 }
+*/

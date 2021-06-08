@@ -1,4 +1,4 @@
-enum UnsplashTopicType{
+enum UnsplashTopic{
  nature,
  people,
  streetPhotography,
@@ -11,6 +11,111 @@ enum UnsplashTopicType{
  sustainability
 }
 
+extension UnsplashTopicExtension on UnsplashTopic{
+
+  String get title {
+    switch(this){
+      case UnsplashTopic.nature:
+        return 'nature title';
+
+      case UnsplashTopic.people:
+        return 'nature title';
+
+      case UnsplashTopic.streetPhotography:
+        return 'nature title';
+
+      case UnsplashTopic.artsCulture:
+        return 'nature title';
+
+      case UnsplashTopic.architecture:
+        return 'nature title';
+
+      case UnsplashTopic.travel:
+        return 'nature title';
+
+      case UnsplashTopic.technology:
+        return 'nature title';
+
+      case UnsplashTopic.animals:
+        return 'nature title';
+
+      case UnsplashTopic.foodDrink:
+        return 'nature title';
+
+      case UnsplashTopic.sustainability:
+        return 'nature title';
+
+      default:
+        return '';
+    }
+  }
+
+  String get key {
+    switch(this){
+      case UnsplashTopic.nature:
+        return 'nature';
+
+      case UnsplashTopic.people:
+        return 'people';
+
+      case UnsplashTopic.streetPhotography:
+        return 'nature title';
+
+      case UnsplashTopic.artsCulture:
+        return 'nature title';
+
+      case UnsplashTopic.architecture:
+        return 'nature title';
+
+      case UnsplashTopic.travel:
+        return 'nature title';
+
+      case UnsplashTopic.technology:
+        return 'nature title';
+
+      case UnsplashTopic.animals:
+        return 'nature title';
+
+      case UnsplashTopic.foodDrink:
+        return 'nature title';
+
+      case UnsplashTopic.sustainability:
+        return 'nature title';
+
+      default:
+        return '';
+    }
+  }
+
+  static UnsplashTopic rawValue(String key){
+    switch(key){
+      case 'nature':
+        return UnsplashTopic.nature;
+      case 'people':
+        return UnsplashTopic.people;
+      case 'streetPhotography':
+        return UnsplashTopic.streetPhotography;
+      case 'artsCulture':
+        return UnsplashTopic.artsCulture;
+      case 'architecture':
+        return UnsplashTopic.architecture;
+      case 'travel':
+        return UnsplashTopic.travel;
+      case 'technology':
+        return UnsplashTopic.technology;
+      case 'animals':
+        return UnsplashTopic.animals;
+      case 'foodDrink':
+        return UnsplashTopic.foodDrink;
+      case 'sustainability':
+        return UnsplashTopic.sustainability;
+      default:
+        return null;
+    }
+  }
+}
+
+/*
 class UnsplashTopic{
   UnsplashTopic(this.type);
 
@@ -112,3 +217,4 @@ class UnsplashTopic{
 
   String title;
 }
+*/
