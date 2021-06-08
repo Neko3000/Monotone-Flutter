@@ -1,15 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
-class AnimationState extends Equatable{
-
-  @override
-  List<Object> get props => [];
-}
-
 abstract class WidgetStateAnimatable{
   void buildAnimation();
-  void animation(AnimationState state);
+  void animation(dynamic state);
 }
 
 class BaseWidgetState<T extends StatefulWidget> extends State<T>{

@@ -14,17 +14,9 @@ import 'package:monotone_flutter/screens/photo_list_jumbotron_view.dart';
 import 'package:monotone_flutter/screens/photo_list_state.dart';
 import 'package:monotone_flutter/vars/interface_values.dart';
 
-enum PhotoListAnimationStateType{
+enum PhotoListAnimationState{
   showJumbotronView,
   showHeaderView
-}
-
-class PhotoListAnimationState extends AnimationState{
-  PhotoListAnimationState.fromType(this.type);
-  final PhotoListAnimationStateType type;
-
-  @override
-  List<Object> get props => [this.type];
 }
 
 class PhotoListScreen extends StatefulWidget {
@@ -42,7 +34,7 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements 
   ScrollController _scrollController = ScrollController();
 
   bool _showJumbotronView = true;
-  PhotoListAnimationState _animationState = PhotoListAnimationState.fromType(PhotoListAnimationStateType.showJumbotronView);
+  PhotoListAnimationState _animationState = PhotoListAnimationState.showJumbotronView;
 
   @override
   void initState() {
@@ -123,10 +115,10 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements 
     this._scrollController.addListener(() {
 
       if(this._scrollController.position.pixels <= InterfaceValues.showTopContentOffset){
-        this.animation(PhotoListAnimationState.fromType(PhotoListAnimationStateType.showJumbotronView));
+        this.animation(PhotoListAnimationState.showJumbotronView);
       }
       else{
-        this.animation(PhotoListAnimationState.fromType(PhotoListAnimationStateType.showHeaderView));
+        this.animation(PhotoListAnimationState.showHeaderView);
       }
 
       print('scrollController position pixels = ${this._scrollController.position.pixels}');
@@ -136,17 +128,17 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements 
   }
 
   @override
-  void animation(AnimationState state) {
+  void animation(dynamic state) {
 
     PhotoListAnimationState photoListAnimationState = state as PhotoListAnimationState;
 
-    if(photoListAnimationState == PhotoListAnimationState.fromType(PhotoListAnimationStateType.showJumbotronView)){
+    if(photoListAnimationState == PhotoListAnimationState.showJumbotronView){
       this.setState(() {
         this._showJumbotronView = true;
       });
 
     }
-    else if(photoListAnimationState == PhotoListAnimationState.fromType(PhotoListAnimationStateType.showHeaderView)) {
+    else if(photoListAnimationState == PhotoListAnimationState.showHeaderView) {
       this.setState(() {
         this._showJumbotronView = false;
       });
