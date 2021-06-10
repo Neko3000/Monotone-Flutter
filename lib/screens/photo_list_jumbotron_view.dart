@@ -6,7 +6,7 @@ class PhotoListJumbotronView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 300,
+        height: 256.0,
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Column( children: [
           Container(

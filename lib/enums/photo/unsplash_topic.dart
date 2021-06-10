@@ -16,34 +16,34 @@ extension UnsplashTopicExtension on UnsplashTopic{
   String get title {
     switch(this){
       case UnsplashTopic.nature:
-        return 'nature title';
+        return 'Nature';
 
       case UnsplashTopic.people:
-        return 'nature title';
+        return 'People';
 
       case UnsplashTopic.streetPhotography:
-        return 'nature title';
+        return 'Street Photography';
 
       case UnsplashTopic.artsCulture:
-        return 'nature title';
+        return 'Arts & Culture';
 
       case UnsplashTopic.architecture:
-        return 'nature title';
+        return 'Architecture';
 
       case UnsplashTopic.travel:
-        return 'nature title';
+        return 'Travel';
 
       case UnsplashTopic.technology:
-        return 'nature title';
+        return 'Technology';
 
       case UnsplashTopic.animals:
-        return 'nature title';
+        return 'Animals';
 
       case UnsplashTopic.foodDrink:
-        return 'nature title';
+        return 'Food & Drink';
 
       case UnsplashTopic.sustainability:
-        return 'nature title';
+        return 'Sustainability';
 
       default:
         return '';
