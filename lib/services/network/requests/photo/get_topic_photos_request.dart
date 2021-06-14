@@ -9,7 +9,7 @@ class GetTopicPhotosRequest extends BaseRequest {
 
   @override
   @JsonKey(ignore: true)
-  String get api => 'topic/${this.idOrSlug ?? ''}/photos';
+  String get api => 'topics/${this.idOrSlug ?? ''}/photos';
 
   @JsonKey(ignore: true)
   String idOrSlug;

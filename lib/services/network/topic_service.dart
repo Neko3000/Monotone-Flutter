@@ -7,7 +7,7 @@ import 'package:monotone_flutter/services/network/responses/photo/get_topic_phot
 class TopicService extends NetworkService {
 
   Future<List<Photo>> getTopicPhotos(String idOrSlug,
-      {int page = 1, int perPage = 10,String orientation = '', String orderBy = 'latest'}) {
+      {int page = 1, int perPage = 10,String orientation, String orderBy = 'latest'}) {
     GetTopicPhotosRequest request = GetTopicPhotosRequest();
     request.idOrSlug = idOrSlug;
     request.page = page;

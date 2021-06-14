@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
+import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
 import 'package:monotone_flutter/screens/base_widget_state.dart';
 import 'package:monotone_flutter/screens/photo_grid_view_cell.dart';
 import 'package:monotone_flutter/screens/photo_list_bloc.dart';
@@ -13,10 +14,7 @@ import 'package:monotone_flutter/screens/photo_list_jumbotron_view.dart';
 import 'package:monotone_flutter/screens/photo_list_state.dart';
 import 'package:monotone_flutter/vars/interface_values.dart';
 
-enum PhotoListAnimationState{
-  showJumbotronView,
-  showHeaderView
-}
+enum PhotoListAnimationState { showJumbotronView, showHeaderView }
 
 class PhotoListScreen extends StatefulWidget {
   PhotoListScreen({Key key, this.title}) : super(key: key);
@@ -27,13 +25,13 @@ class PhotoListScreen extends StatefulWidget {
   _PhotoListScreenState createState() => _PhotoListScreenState();
 }
 
-class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements WidgetStateAnimatable {
-
+class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen>{
   EasyRefreshController _easyRefreshController = EasyRefreshController();
   ScrollController _scrollController = ScrollController();
 
   bool _showJumbotronView = true;
-  PhotoListAnimationState _animationState = PhotoListAnimationState.showJumbotronView;
+  PhotoListAnimationState _animationState =
+      PhotoListAnimationState.showJumbotronView;
 
   @override
   void initState() {
@@ -46,8 +44,8 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(create: (BuildContext context) {
-      PhotoListEvent event = PhotoListListOrderByChanged(
-          listOrderBy: ListOrderBy.latest);
+      PhotoListEvent event =
+          PhotoListListOrderByChanged(listOrderBy: ListOrderBy.latest);
       return PhotoListBloc()..add(event);
     }, child: Scaffold(body: SafeArea(
       child:
@@ -71,12 +69,17 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements 
   }
 
   Widget _renderHeaderView(BuildContext context, PhotoListState state) {
-
-    if(this._showJumbotronView){
+    if (this._showJumbotronView) {
       return PhotoListJumbotronView();
-    }
-    else{
-      return PhotoListHeaderView();
+    } else {
+      return PhotoListHeaderView(
+        onListOrderByChange: (ListOrderBy listOrderBy) {
+          BlocProvider.of<PhotoListBloc>(context).add(PhotoListListOrderByChanged(listOrderBy: listOrderBy));
+        },
+        onTopicChangeCallBack: (UnsplashTopic topic) {
+          BlocProvider.of<PhotoListBloc>(context).add((PhotoListTopicChanged(topic: topic)));
+        },
+      );
     }
   }
 
@@ -99,8 +102,7 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements 
             controller: this._scrollController,
             crossAxisCount: 2,
             itemCount: state.photos.length,
-            itemBuilder: (BuildContext context, int index) =>
-                PhotoGridViewCell(
+            itemBuilder: (BuildContext context, int index) => PhotoGridViewCell(
                   photo: state.photos[index],
                 ),
             staggeredTileBuilder: (int index) => StaggeredTile.count(
@@ -111,34 +113,27 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> implements 
 
   @override
   void buildAnimation() {
-
     this._scrollController.addListener(() {
-
-      if(this._scrollController.position.pixels <= InterfaceValues.showTopContentOffset){
+      if (this._scrollController.position.pixels <=
+          InterfaceValues.showTopContentOffset) {
         this.animation(PhotoListAnimationState.showJumbotronView);
-      }
-      else{
+      } else {
         this.animation(PhotoListAnimationState.showHeaderView);
       }
-
-      print('scrollController position pixels = ${this._scrollController.position.pixels}');
-      print('showJumbotronView in addListener is ${this._showJumbotronView.toString()}');
     });
-
   }
 
   @override
   void animation(dynamic state) {
+    PhotoListAnimationState photoListAnimationState =
+        state as PhotoListAnimationState;
 
-    PhotoListAnimationState photoListAnimationState = state as PhotoListAnimationState;
-
-    if(photoListAnimationState == PhotoListAnimationState.showJumbotronView){
+    if (photoListAnimationState == PhotoListAnimationState.showJumbotronView) {
       this.setState(() {
         this._showJumbotronView = true;
       });
-
-    }
-    else if(photoListAnimationState == PhotoListAnimationState.showHeaderView) {
+    } else if (photoListAnimationState ==
+        PhotoListAnimationState.showHeaderView) {
       this.setState(() {
         this._showJumbotronView = false;
       });

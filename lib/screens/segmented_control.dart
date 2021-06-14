@@ -1,43 +1,68 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
 import 'package:monotone_flutter/screens/base_widget_state.dart';
 
-class SegmentedControlItem{
+typedef SelectCallBack = void Function(int index, SegmentedControlItem item);
+
+class SegmentedControlItem {
   SegmentedControlItem(this.key, this.title);
+
   final String key;
   final String title;
 }
 
 class SegmentedControl extends StatefulWidget {
-  SegmentedControl({Key key, this.items}):super(key: key);
+  SegmentedControl({Key key, this.items, this.onSelect}) : super(key: key);
 
   final List<SegmentedControlItem> items;
+  final SelectCallBack onSelect;
 
   @override
   State<StatefulWidget> createState() => _SegmentedControlState();
 }
 
 class _SegmentedControlState extends BaseWidgetState<SegmentedControl> {
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 35.0,
+      height: 40.0,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: this.widget.items.length,
+          itemCount: widget.items.length,
           itemBuilder: (BuildContext context, int index) {
-            return Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 10.0),
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              color: Colors.orange,
-              child: Text('${this.widget.items[index].title}'),
+            bool selected = (this.selectedIndex == index);
+
+            return GestureDetector(
+              onTapUp: (TapUpDetails details) {
+                if (widget.onSelect != null) {
+                  widget.onSelect(index, widget.items[index]);
+                }
+
+                setState(() {
+                  this.selectedIndex = index;
+                });
+              },
+              child: Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color: selected ? Colors.black : Colors.transparent,
+                            width: 1.0))),
+                child: Text(
+                  '${widget.items[index].title}',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: selected ? Colors.black : Colors.grey),
+                ),
+              ),
             );
           }),
     );
   }
-
 }

@@ -69,7 +69,7 @@ class PhotoListBloc extends BaseBloc<PhotoListEvent, PhotoListState> {
 
       try {
         final List<Photo> photos = await photoService.searchPhotos(
-            this.state.searchQuery,
+            searchQuery,
             page: nextLoadPage,
             perPage: 20);
 
@@ -109,7 +109,7 @@ class PhotoListBloc extends BaseBloc<PhotoListEvent, PhotoListState> {
 
       try {
         final List<Photo> photos = await topicService.getTopicPhotos(
-            this.state.topic.key,
+            topic.key,
             page: nextLoadPage,
             perPage: 20);
 

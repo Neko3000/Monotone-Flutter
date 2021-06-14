@@ -9,9 +9,9 @@ extension ListOrderByTypeExtension on ListOrderBy{
   String get title {
     switch(this){
       case ListOrderBy.popular:
-        return 'popular title';
+        return 'Popular';
       case ListOrderBy.latest:
-        return 'latest title';
+        return 'Latest';
       default:
         return '';
     }
