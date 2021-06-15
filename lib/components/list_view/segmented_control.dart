@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monotone_flutter/screens/base_widget_state.dart';
+import 'package:monotone_flutter/components/base_widget_state.dart';
 
 typedef SelectCallBack = void Function(int index, SegmentedControlItem item);
 

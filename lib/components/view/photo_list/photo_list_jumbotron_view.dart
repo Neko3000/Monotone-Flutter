@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
 import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
-import 'package:monotone_flutter/screens/segmented_control.dart';
+import 'package:monotone_flutter/components/list_view/segmented_control.dart';
 
 class PhotoListJumbotronView extends StatefulWidget {
   PhotoListJumbotronView(

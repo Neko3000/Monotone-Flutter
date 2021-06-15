@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
 import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
 import 'package:monotone_flutter/models/photo/photo.dart';
-import 'package:monotone_flutter/screens/base_bloc.dart';
-import 'package:monotone_flutter/screens/photo_list_event.dart';
-import 'package:monotone_flutter/screens/photo_list_state.dart';
+import 'package:monotone_flutter/blocs/base_bloc.dart';
+import 'package:monotone_flutter/blocs/photo_list/photo_list_event.dart';
+import 'package:monotone_flutter/blocs/photo_list/photo_list_state.dart';
 import 'package:monotone_flutter/services/network/photo_service.dart';
 import 'package:monotone_flutter/services/network/topic_service.dart';
 

@@ -5,13 +5,13 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
 import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
-import 'package:monotone_flutter/screens/base_widget_state.dart';
-import 'package:monotone_flutter/screens/photo_grid_view_cell.dart';
-import 'package:monotone_flutter/screens/photo_list_bloc.dart';
-import 'package:monotone_flutter/screens/photo_list_event.dart';
-import 'package:monotone_flutter/screens/photo_list_header_view.dart';
-import 'package:monotone_flutter/screens/photo_list_jumbotron_view.dart';
-import 'package:monotone_flutter/screens/photo_list_state.dart';
+import 'package:monotone_flutter/components/base_widget_state.dart';
+import 'package:monotone_flutter/components/grid_view_cell/photo_grid_view_cell.dart';
+import 'package:monotone_flutter/blocs/photo_list/photo_list_bloc.dart';
+import 'package:monotone_flutter/blocs/photo_list/photo_list_event.dart';
+import 'package:monotone_flutter/components/view/photo_list/photo_list_header_view.dart';
+import 'package:monotone_flutter/components/view/photo_list/photo_list_jumbotron_view.dart';
+import 'package:monotone_flutter/blocs/photo_list/photo_list_state.dart';
 import 'package:monotone_flutter/vars/interface_values.dart';
 
 enum PhotoListAnimationState { showJumbotronView, showHeaderView }
