@@ -5,7 +5,11 @@ import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
 import 'package:monotone_flutter/screens/segmented_control.dart';
 
 class PhotoListJumbotronView extends StatefulWidget {
-  PhotoListJumbotronView({Key key, this.onListOrderByChange}) : super(key: key);
+  PhotoListJumbotronView(
+      {Key key, this.selectedItemKey, this.onListOrderByChange})
+      : super(key: key);
+
+  final String selectedItemKey;
 
   final void Function(ListOrderBy listOrderBy) onListOrderByChange;
 
@@ -14,8 +18,25 @@ class PhotoListJumbotronView extends StatefulWidget {
 }
 
 class _PhotoListJumbotronViewState extends State<PhotoListJumbotronView> {
+  String selectedItemKey;
+
+  @override
+  void initState() {
+    super.initState();
+
+    this.selectedItemKey = widget.selectedItemKey;
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    List<SegmentedControlItem> items = ListOrderBy.values
+        .map((e) => SegmentedControlItem(e.key, e.title))
+        .toList();
+
+    int selectedIndex =
+        items.indexWhere((element) => element.key == this.selectedItemKey);
+
     return Container(
         height: 256.0,
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -41,20 +62,25 @@ class _PhotoListJumbotronViewState extends State<PhotoListJumbotronView> {
                 style: TextStyle(color: Colors.grey, fontSize: 12, height: 1.5),
               )),
           Spacer(),
-          Container(
-            child: SegmentedControl(
-                items: ListOrderBy.values
-                        .map((e) => SegmentedControlItem(e.key, e.title))
-                        .toList(),
-                onSelect: (index, item) {
-                  if (index >= 0 && index <= ListOrderBy.values.length - 1) {
-                    if (widget.onListOrderByChange != null) {
-                      widget.onListOrderByChange(ListOrderBy.values[index]);
-                    }
-                  }
-
-                  print('${item.title} is selected');
-                }),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                width: 150.0,
+                child: SegmentedControl(
+                    items: items,
+                    selectedIndex: selectedIndex == -1 ? 0 : selectedIndex,
+                    onSelect: (index, item) {
+                      if (index >= 0 &&
+                          index <= ListOrderBy.values.length - 1) {
+                        if (widget.onListOrderByChange != null) {
+                          widget.onListOrderByChange(ListOrderBy.values[index]);
+                        }
+                      }
+                      print('${item.title} is selected');
+                    }),
+              )
+            ],
           )
         ]));
   }

@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class WidgetStateAnimatable{
-  void buildAnimation();
-  void animation(dynamic state);
+  void _buildAnimation();
+  void _animation(dynamic state);
 }
 
 class BaseWidgetState<T extends StatefulWidget> extends State<T>{

@@ -12,9 +12,11 @@ class SegmentedControlItem {
 }
 
 class SegmentedControl extends StatefulWidget {
-  SegmentedControl({Key key, this.items, this.onSelect}) : super(key: key);
+  SegmentedControl({Key key, this.items, this.selectedIndex = 0,  this.onSelect}) : super(key: key);
 
   final List<SegmentedControlItem> items;
+  final int selectedIndex;
+
   final SelectCallBack onSelect;
 
   @override
@@ -22,7 +24,14 @@ class SegmentedControl extends StatefulWidget {
 }
 
 class _SegmentedControlState extends BaseWidgetState<SegmentedControl> {
-  int selectedIndex = 0;
+  int selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+
+    this.selectedIndex = widget.selectedIndex;
+  }
 
   @override
   Widget build(BuildContext context) {

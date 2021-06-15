@@ -25,7 +25,7 @@ class PhotoListScreen extends StatefulWidget {
   _PhotoListScreenState createState() => _PhotoListScreenState();
 }
 
-class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen>{
+class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> {
   EasyRefreshController _easyRefreshController = EasyRefreshController();
   ScrollController _scrollController = ScrollController();
 
@@ -38,7 +38,7 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen>{
     super.initState();
 
     // BuildAnimation.
-    this.buildAnimation();
+    this._buildAnimation();
   }
 
   @override
@@ -70,14 +70,25 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen>{
 
   Widget _renderHeaderView(BuildContext context, PhotoListState state) {
     if (this._showJumbotronView) {
-      return PhotoListJumbotronView();
+      return PhotoListJumbotronView(
+        onListOrderByChange: (ListOrderBy listOrderBy) {
+          BlocProvider.of<PhotoListBloc>(context)
+              .add(PhotoListListOrderByChanged(listOrderBy: listOrderBy));
+        },
+      );
     } else {
       return PhotoListHeaderView(
         onListOrderByChange: (ListOrderBy listOrderBy) {
-          BlocProvider.of<PhotoListBloc>(context).add(PhotoListListOrderByChanged(listOrderBy: listOrderBy));
+          BlocProvider.of<PhotoListBloc>(context)
+              .add(PhotoListListOrderByChanged(listOrderBy: listOrderBy));
         },
         onTopicChangeCallBack: (UnsplashTopic topic) {
-          BlocProvider.of<PhotoListBloc>(context).add((PhotoListTopicChanged(topic: topic)));
+          BlocProvider.of<PhotoListBloc>(context)
+              .add(PhotoListTopicChanged(topic: topic));
+        },
+        onSearchQueryChangeCallBack: (String searchQuery) {
+          BlocProvider.of<PhotoListBloc>(context)
+              .add(PhotoListSearchQueryChanged(searchQuery: searchQuery));
         },
       );
     }
@@ -111,20 +122,18 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen>{
     ));
   }
 
-  @override
-  void buildAnimation() {
+  void _buildAnimation() {
     this._scrollController.addListener(() {
       if (this._scrollController.position.pixels <=
           InterfaceValues.showTopContentOffset) {
-        this.animation(PhotoListAnimationState.showJumbotronView);
+        this._animation(PhotoListAnimationState.showJumbotronView);
       } else {
-        this.animation(PhotoListAnimationState.showHeaderView);
+        this._animation(PhotoListAnimationState.showHeaderView);
       }
     });
   }
 
-  @override
-  void animation(dynamic state) {
+  void _animation(dynamic state) {
     PhotoListAnimationState photoListAnimationState =
         state as PhotoListAnimationState;
 
