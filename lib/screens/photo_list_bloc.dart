@@ -16,8 +16,6 @@ class PhotoListBloc extends BaseBloc<PhotoListEvent, PhotoListState> {
 
   @override
   Stream<PhotoListState> bind(PhotoListEvent event) async* {
-    yield PhotoListStateLoadMoreInProgress.fromState(this.state);
-
     // PhotoService photoService = this.findServices(PhotoService);
     PhotoService photoService = PhotoService();
     TopicService topicService = TopicService();
@@ -31,8 +29,6 @@ class PhotoListBloc extends BaseBloc<PhotoListEvent, PhotoListState> {
         nextLoadPage = 1;
         yield PhotoListStateReloadInProgress.fromState(this.state);
       }
-
-      print('next load page is $nextLoadPage');
 
       try {
         List<Photo> photos = [];
@@ -62,16 +58,15 @@ class PhotoListBloc extends BaseBloc<PhotoListEvent, PhotoListState> {
         yield PhotoListStateLoadFailure.fromState(this.state);
       }
     } else if (event is PhotoListSearchQueryChanged) {
-      yield PhotoListStateReloadInProgress.fromState(this.state);
-
       final String searchQuery = event.searchQuery;
       final int nextLoadPage = 1;
 
+      yield PhotoListStateReloadInProgress.fromState(this.state,
+          searchQuery: searchQuery);
+
       try {
-        final List<Photo> photos = await photoService.searchPhotos(
-            searchQuery,
-            page: nextLoadPage,
-            perPage: 20);
+        final List<Photo> photos = await photoService.searchPhotos(searchQuery,
+            page: nextLoadPage, perPage: 20);
 
         yield PhotoListStateLoadSuccess(
             searchQuery: searchQuery,
@@ -83,10 +78,11 @@ class PhotoListBloc extends BaseBloc<PhotoListEvent, PhotoListState> {
         yield PhotoListStateLoadFailure.fromState(this.state);
       }
     } else if (event is PhotoListListOrderByChanged) {
-      yield PhotoListStateReloadInProgress.fromState(this.state);
-
       final ListOrderBy listOrderBy = event.listOrderBy;
       final int nextLoadPage = 1;
+
+      yield PhotoListStateReloadInProgress.fromState(this.state,
+          listOrderBy: listOrderBy);
 
       try {
         final List<Photo> photos = await photoService.listPhotos(
@@ -102,16 +98,14 @@ class PhotoListBloc extends BaseBloc<PhotoListEvent, PhotoListState> {
         yield PhotoListStateLoadFailure.fromState(this.state);
       }
     } else if (event is PhotoListTopicChanged) {
-      yield PhotoListStateReloadInProgress.fromState(this.state);
-
       final UnsplashTopic topic = event.topic;
       final int nextLoadPage = 1;
 
+      yield PhotoListStateReloadInProgress.fromState(this.state, topic: topic);
+
       try {
-        final List<Photo> photos = await topicService.getTopicPhotos(
-            topic.key,
-            page: nextLoadPage,
-            perPage: 20);
+        final List<Photo> photos = await topicService.getTopicPhotos(topic.key,
+            page: nextLoadPage, perPage: 20);
 
         yield PhotoListStateLoadSuccess(
             searchQuery: null,

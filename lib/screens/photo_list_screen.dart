@@ -71,6 +71,7 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> {
   Widget _renderHeaderView(BuildContext context, PhotoListState state) {
     if (this._showJumbotronView) {
       return PhotoListJumbotronView(
+        selectedItemKey: state.selectedItemKey,
         onListOrderByChange: (ListOrderBy listOrderBy) {
           BlocProvider.of<PhotoListBloc>(context)
               .add(PhotoListListOrderByChanged(listOrderBy: listOrderBy));
@@ -78,6 +79,7 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> {
       );
     } else {
       return PhotoListHeaderView(
+        selectedItemKey: state.selectedItemKey,
         onListOrderByChange: (ListOrderBy listOrderBy) {
           BlocProvider.of<PhotoListBloc>(context)
               .add(PhotoListListOrderByChanged(listOrderBy: listOrderBy));

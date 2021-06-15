@@ -12,6 +12,17 @@ class PhotoListState extends Equatable {
       this.nextLoadPage});
 
   final String searchQuery;
+
+  String get selectedItemKey {
+    if (this.listOrderBy != null) {
+      return this.listOrderBy.key;
+    } else if (this.topic != null) {
+      return this.topic.key;
+    }
+
+    return '';
+  }
+
   final ListOrderBy listOrderBy;
   final UnsplashTopic topic;
 
@@ -58,13 +69,19 @@ class PhotoListStateLoadMoreInProgress extends PhotoListState {
             currentPhotos: currentPhotos,
             nextLoadPage: nextLoadPage);
 
-  PhotoListStateLoadMoreInProgress.fromState(PhotoListState state)
+  PhotoListStateLoadMoreInProgress.fromState(PhotoListState state,
+      {String searchQuery,
+      ListOrderBy listOrderBy,
+      UnsplashTopic topic,
+      List<Photo> currentPhotos,
+      List<Photo> emptyPhotos,
+      int nextLoadPage})
       : this(
-            searchQuery: state.searchQuery,
-            listOrderBy: state.listOrderBy,
-            topic: state.topic,
-            currentPhotos: state.currentPhotos,
-            nextLoadPage: state.nextLoadPage);
+            searchQuery: searchQuery ?? state.searchQuery,
+            listOrderBy: listOrderBy ?? state.listOrderBy,
+            topic: topic ?? state.topic,
+            currentPhotos: currentPhotos ?? state.currentPhotos,
+            nextLoadPage: nextLoadPage ?? state.nextLoadPage);
 
   @override
   List<Photo> get photos => this.currentPhotos + List.filled(10, Photo());
@@ -84,13 +101,19 @@ class PhotoListStateReloadInProgress extends PhotoListState {
             currentPhotos: currentPhotos,
             nextLoadPage: nextLoadPage);
 
-  PhotoListStateReloadInProgress.fromState(PhotoListState state)
+  PhotoListStateReloadInProgress.fromState(PhotoListState state,
+      {String searchQuery,
+      ListOrderBy listOrderBy,
+      UnsplashTopic topic,
+      List<Photo> currentPhotos,
+      List<Photo> emptyPhotos,
+      int nextLoadPage})
       : this(
-            searchQuery: state.searchQuery,
-            listOrderBy: state.listOrderBy,
-            topic: state.topic,
-            currentPhotos: state.currentPhotos,
-            nextLoadPage: state.nextLoadPage);
+            searchQuery: searchQuery ?? state.searchQuery,
+            listOrderBy: listOrderBy ?? state.listOrderBy,
+            topic: topic ?? state.topic,
+            currentPhotos: currentPhotos ?? state.currentPhotos,
+            nextLoadPage: nextLoadPage ?? state.nextLoadPage);
 
   @override
   List<Photo> get photos => List.filled(10, Photo());
@@ -110,13 +133,19 @@ class PhotoListStateLoadSuccess extends PhotoListState {
             currentPhotos: currentPhotos,
             nextLoadPage: nextLoadPage);
 
-  PhotoListStateLoadSuccess.fromState(PhotoListState state)
+  PhotoListStateLoadSuccess.fromState(PhotoListState state,
+      {String searchQuery,
+      ListOrderBy listOrderBy,
+      UnsplashTopic topic,
+      List<Photo> currentPhotos,
+      List<Photo> emptyPhotos,
+      int nextLoadPage})
       : this(
-            searchQuery: state.searchQuery,
-            listOrderBy: state.listOrderBy,
-            topic: state.topic,
-            currentPhotos: state.currentPhotos,
-            nextLoadPage: state.nextLoadPage);
+            searchQuery: searchQuery ?? state.searchQuery,
+            listOrderBy: listOrderBy ?? state.listOrderBy,
+            topic: topic ?? state.topic,
+            currentPhotos: currentPhotos ?? state.currentPhotos,
+            nextLoadPage: nextLoadPage ?? state.nextLoadPage);
 
   @override
   List<Photo> get photos => this.currentPhotos;
@@ -136,13 +165,19 @@ class PhotoListStateLoadFailure extends PhotoListState {
             currentPhotos: currentPhotos,
             nextLoadPage: nextLoadPage);
 
-  PhotoListStateLoadFailure.fromState(PhotoListState state)
+  PhotoListStateLoadFailure.fromState(PhotoListState state,
+      {String searchQuery,
+      ListOrderBy listOrderBy,
+      UnsplashTopic topic,
+      List<Photo> currentPhotos,
+      List<Photo> emptyPhotos,
+      int nextLoadPage})
       : this(
-            searchQuery: state.searchQuery,
-            listOrderBy: state.listOrderBy,
-            topic: state.topic,
-            currentPhotos: state.currentPhotos,
-            nextLoadPage: state.nextLoadPage);
+            searchQuery: searchQuery ?? state.searchQuery,
+            listOrderBy: listOrderBy ?? state.listOrderBy,
+            topic: topic ?? state.topic,
+            currentPhotos: currentPhotos ?? state.currentPhotos,
+            nextLoadPage: nextLoadPage ?? state.nextLoadPage);
 
   @override
   List<Photo> get photos => this.currentPhotos;
