@@ -59,28 +59,28 @@ extension UnsplashTopicExtension on UnsplashTopic{
         return 'people';
 
       case UnsplashTopic.streetPhotography:
-        return 'nature title';
+        return 'street-photography';
 
       case UnsplashTopic.artsCulture:
-        return 'nature title';
+        return 'arts-culture';
 
       case UnsplashTopic.architecture:
-        return 'nature title';
+        return 'architecture';
 
       case UnsplashTopic.travel:
-        return 'nature title';
+        return 'travel';
 
       case UnsplashTopic.technology:
-        return 'nature title';
+        return 'technology';
 
       case UnsplashTopic.animals:
-        return 'nature title';
+        return 'animals';
 
       case UnsplashTopic.foodDrink:
-        return 'nature title';
+        return 'food-drink';
 
       case UnsplashTopic.sustainability:
-        return 'nature title';
+        return 'sustainability';
 
       default:
         return '';
