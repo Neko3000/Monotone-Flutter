@@ -12,6 +12,7 @@ import 'package:monotone_flutter/blocs/photo_list/photo_list_event.dart';
 import 'package:monotone_flutter/components/view/photo_list/photo_list_header_view.dart';
 import 'package:monotone_flutter/components/view/photo_list/photo_list_jumbotron_view.dart';
 import 'package:monotone_flutter/blocs/photo_list/photo_list_state.dart';
+import 'package:monotone_flutter/screens/photo_list/photo_details_screen.dart';
 import 'package:monotone_flutter/vars/interface_values.dart';
 
 enum PhotoListAnimationState { showJumbotronView, showHeaderView }
@@ -47,7 +48,7 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> {
       PhotoListEvent event =
           PhotoListListOrderByChanged(listOrderBy: ListOrderBy.latest);
       return PhotoListBloc()..add(event);
-    }, child: Scaffold(body: SafeArea(
+    }, child: CupertinoPageScaffold(child: SafeArea(
       child:
           BlocBuilder<PhotoListBloc, PhotoListState>(builder: (context, state) {
         if (state is PhotoListStateLoadSuccess) {
@@ -115,9 +116,20 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> {
             controller: this._scrollController,
             crossAxisCount: 2,
             itemCount: state.photos.length,
-            itemBuilder: (BuildContext context, int index) => PhotoGridViewCell(
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTapUp: (TapUpDetails details) {
+                  // CupertinoPage
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                    return PhotoDetailsScreen();
+                  }));
+                },
+                child: PhotoGridViewCell(
                   photo: state.photos[index],
                 ),
+              );
+            },
             staggeredTileBuilder: (int index) => StaggeredTile.count(
                 index % 4 == 0 || index % 4 == 3 ? 2 : 1, 1.5)),
       ),
