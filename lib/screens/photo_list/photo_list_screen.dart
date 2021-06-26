@@ -1,8 +1,10 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:monotone_flutter/application/scene_coordinator.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
 import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
 import 'package:monotone_flutter/components/base_widget_state.dart';
@@ -119,11 +121,8 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTapUp: (TapUpDetails details) {
-                  // CupertinoPage
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return PhotoDetailsScreen();
-                  }));
+
+                  SceneCoordinator.shared.pushPage(CupertinoPage(child: PhotoDetailsScreen()));
                 },
                 child: PhotoGridViewCell(
                   photo: state.photos[index],

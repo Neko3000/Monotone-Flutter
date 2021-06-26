@@ -1,6 +1,10 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monotone_flutter/application/app_manager.dart';
+import 'package:monotone_flutter/application/scene_coordinator.dart';
+import 'package:monotone_flutter/application/scene_storage.dart';
+import 'package:monotone_flutter/screens/photo_list/photo_details_screen.dart';
 import 'package:monotone_flutter/screens/photo_list/photo_list_screen.dart';
 import 'package:monotone_flutter/services/authentication/auth_manager.dart';
 
@@ -15,14 +19,54 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+
+  @override
+  State<StatefulWidget> createState() =>  _MyAppState();
+}
+
+class _MyAppState extends State<MyApp>{
+
+  bool showDetails = false;
+
+  List<Page> myPages = [
+    CupertinoPage(key: Key('/photoList'),name: '/photoList',  child: PhotoListScreen()),
+  ];
+
+  @override
+  void setState(fn) {
+    // TODO: implement setState
+    super.setState(fn);
+  }
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: 'Flutter Demo',
-      home: PhotoListScreen(title:"Photo List"),
-    );
+
+    // Future.delayed(Duration(seconds: 5), (){
+    //   print('added some pages');
+    //
+    //   setState(() {
+    //     // myPages.add(CupertinoPage(child: PhotoDetailsScreen()));
+    //     myPages.add(CupertinoPage(key: Key('/photoDetails'),name: '/photoDetails',  child: PhotoDetailsScreen()));
+    //   });
+    // });
+
+    return StreamBuilder(
+      stream: SceneCoordinator.shared.pages.stream.where((event) => event != null && event.length != 0),
+      initialData: SceneStorage.pages,
+      builder:(BuildContext context, AsyncSnapshot<List<Page>> snapshot){
+
+        print('the value of snapshot is' + snapshot.data.toString());
+
+
+        return CupertinoApp(
+          title: 'Flutter Demo',
+          home: Navigator(pages: List.of(snapshot.data), onPopPage:(Route<dynamic> route, dynamic result){
+            SceneCoordinator.shared.popPage(route.settings);
+            return route.didPop(result);
+          }),
+        );
+    });
   }
 }
 
