@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:monotone_flutter/application/scene_coordinator.dart';
+import 'package:monotone_flutter/application/scene_route_delegate.dart';
 import 'package:monotone_flutter/enums/photo/list_order_by.dart';
 import 'package:monotone_flutter/enums/photo/unsplash_topic.dart';
 import 'package:monotone_flutter/components/base_widget_state.dart';
@@ -122,7 +123,8 @@ class _PhotoListScreenState extends BaseWidgetState<PhotoListScreen> {
               return GestureDetector(
                 onTapUp: (TapUpDetails details) {
 
-                  SceneCoordinator.shared.pushPage(CupertinoPage(child: PhotoDetailsScreen()));
+                  // SceneCoordinator.shared.pushPage(CupertinoPage(child: PhotoDetailsScreen()));
+                  SceneRouteDelegate.shared.pushPage(CupertinoPage(child: PhotoDetailsScreen()));
                 },
                 child: PhotoGridViewCell(
                   photo: state.photos[index],
