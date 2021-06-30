@@ -8,8 +8,11 @@ part 'search_photo_response.g.dart';
 class SearchPhotoResponse extends BaseResponse{
   SearchPhotoResponse();
 
+  @JsonKey(name:'total')
   int total;
+  @JsonKey(name:'total_pages')
   int totalPages;
+  @JsonKey(name: 'results')
   List<Photo> results;
 
   factory SearchPhotoResponse.fromJson(Map<String,dynamic> json) => _$SearchPhotoResponseFromJson(json);

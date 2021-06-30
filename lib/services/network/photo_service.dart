@@ -40,4 +40,8 @@ class PhotoService extends NetworkService {
       return photos;
     });
   }
+
+  Future<Photo> likePhotos(String id){
+
+  }
 }

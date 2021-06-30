@@ -8,6 +8,7 @@ part 'get_topic_photos_response.g.dart';
 class GetTopicPhotosResponse extends BaseResponse{
   GetTopicPhotosResponse();
 
+  @JsonKey(name:'results')
   List<Photo> results;
 
   factory GetTopicPhotosResponse.fromJson(Map<String,dynamic> json) => _$GetTopicPhotosResponseFromJson(json);
