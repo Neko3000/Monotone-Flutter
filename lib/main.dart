@@ -1,12 +1,7 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monotone_flutter/application/app_manager.dart';
 import 'package:monotone_flutter/application/scene_coordinator.dart';
-import 'package:monotone_flutter/application/scene_route_delegate.dart';
-import 'package:monotone_flutter/application/scene_route_parser.dart';
-import 'package:monotone_flutter/application/scene_storage.dart';
-import 'package:monotone_flutter/screens/photo_list/photo_details_screen.dart';
 import 'package:monotone_flutter/screens/photo_list/photo_list_screen.dart';
 import 'package:monotone_flutter/services/authentication/auth_manager.dart';
 
@@ -30,48 +25,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp>{
 
-  Route<dynamic> onGenerateRoute(RouteSettings settings){
-    if(settings.name == '/'){
-      return CupertinoPageRoute(builder: (context) => PhotoListScreen());
-    }
-    else if(settings.name.endsWith('photoDetails')){
-      return CupertinoPageRoute(builder: (context) => PhotoDetailsScreen());
-    }
-
-    return null;
-  }
-
-  bool showDetails = false;
-
-  List<Page> myPages = [
-    CupertinoPage(key: Key('/photoList'),name: '/photoList',  child: PhotoListScreen()),
-  ];
-
-  @override
-  void setState(fn) {
-    // TODO: implement setState
-    super.setState(fn);
-  }
   @override
   Widget build(BuildContext context) {
 
-    // Future.delayed(Duration(seconds: 5), (){
-    //   print('added some pages');
-    //
-    //   setState(() {
-    //     // myPages.add(CupertinoPage(child: PhotoDetailsScreen()));
-    //     myPages.add(CupertinoPage(key: Key('/photoDetails'),name: '/photoDetails',  child: PhotoDetailsScreen()));
-    //   });
-    // });
-
-    return CupertinoApp.router(
+    return CupertinoApp(
       title: 'Flutter Demo',
-      routeInformationParser: SceneRouteParser(),
-      routerDelegate: SceneRouteDelegate.shared,
-      // home: Navigator(pages: List.of(SceneCoordinator.shared.pages), onPopPage:(Route<dynamic> route, dynamic result){
-      //   SceneCoordinator.shared.popPage(route.settings);
-      //   return route.didPop(result);
-      // }),
+      onGenerateRoute: SceneCoordinator.shared.onGenerateRoute,
+      home: PhotoListScreen()
     );
   }
 }
